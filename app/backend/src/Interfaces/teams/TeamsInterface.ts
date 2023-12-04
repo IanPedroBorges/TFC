@@ -1,4 +1,4 @@
-export interface TeamsInterfaceModel {
+export interface TeamsInterface {
   id: number;
   teamName: string;
 }

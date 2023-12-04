@@ -1,4 +1,4 @@
-export interface MatchesInterfaceModel {
+export interface MatchesInterface {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;

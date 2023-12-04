@@ -1,10 +1,10 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
 import IExample from '../../Interfaces/Example';
-import { MatchesInterfaceModel } from '../../Interfaces/matches/Matchesinterface';
+import { MatchesInterface } from '../../Interfaces/matches/Matchesinterface';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<MatchesInterfaceModel>>('matches', {
+    return queryInterface.createTable<Model<MatchesInterface>>('matches', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,

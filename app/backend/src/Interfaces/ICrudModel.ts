@@ -4,7 +4,7 @@ export interface ICrudModelCreator<T> {
 
 export interface ICrudModelReader<T> {
   findAll(): Promise<T[]>;
-  findById(id: number): Promise<T | null>;
+  findById(id: number): Promise<T | undefined>;
 }
 
 export interface ICrudModelLogin<T> {

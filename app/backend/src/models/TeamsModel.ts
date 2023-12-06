@@ -14,11 +14,8 @@ export default class TeamsModel implements ICrudModelReader<TeamsInterface> {
     return tratedReturnAllTeams;
   }
 
-  async findById(id: number): Promise<TeamsInterface | null> {
+  async findById(id: number): Promise<TeamsInterface | undefined> {
     const team = await this.model.findByPk(id);
-    if (!team) {
-      return null;
-    }
-    return team.dataValues;
+    return team?.dataValues;
   }
 }

@@ -8,12 +8,12 @@ export default class TeamsServices {
 
   public async findAll(): Promise<ServiceResponse<TeamsInterface[]>> {
     const allTeams = await this.teamsModel.findAll();
-    if (!allTeams) return { status: 'internalServerError', data: { message: 'Unknown error' } };
     return { status: 'ok', data: allTeams };
   }
 
   public async findById(id: number): Promise<ServiceResponse<TeamsInterface>> {
     const team = await this.teamsModel.findById(id);
+    console.log(team);
     if (!team) return { status: 'notFound', data: { message: 'Team not found' } };
     return { status: 'ok', data: team };
   }

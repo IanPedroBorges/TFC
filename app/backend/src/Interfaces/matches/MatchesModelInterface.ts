@@ -1,4 +1,4 @@
-import { ICrudModel } from '../ICrudModel';
+import { ICrudMatches } from '../ICrudModel';
 import { MatchesInterface } from './Matchesinterface';
 
-export type TeamModelInterface = ICrudModel<MatchesInterface>;
+export type MatchesModelInterface = ICrudMatches<MatchesInterface>;

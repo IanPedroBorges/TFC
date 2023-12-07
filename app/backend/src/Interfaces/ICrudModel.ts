@@ -4,6 +4,9 @@ export interface ICrudModelCreator<T> {
 
 export interface ICrudModelReader<T> {
   findAll(): Promise<T[]>;
+}
+
+export interface ICrudModelReaderById<T> {
   findById(id: number): Promise<T | undefined>;
 }
 
@@ -16,6 +19,10 @@ export interface ICrudModelUpdater<T> {
   update(id: number, data: Partial<T>): Promise<T | null>;
 }
 
+export interface ICrudModelMatchesInProgress<T> {
+  findInProgress(data: boolean): Promise<T[]>;
+}
+
 export interface ICrudModelDeleter {
   delete(id: number): Promise<number>;
 }
@@ -24,4 +31,7 @@ export interface ICrudModel<T> extends
   ICrudModelCreator<T>,
   ICrudModelReader<T>,
   ICrudModelUpdater<T>,
+  ICrudModelReaderById<T>,
   ICrudModelDeleter { }
+
+export interface ICrudMatches<T> extends ICrudModelReader<T>, ICrudModelMatchesInProgress<T> {}

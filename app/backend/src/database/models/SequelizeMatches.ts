@@ -52,7 +52,7 @@ SequelizeMatches.init({
   },
 }, {
   sequelize: db,
-  modelName: 'trybeEval',
+  tableName: 'matches',
   timestamps: false,
   underscored: true,
 });

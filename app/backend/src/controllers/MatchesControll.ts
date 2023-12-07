@@ -17,4 +17,21 @@ export default class MatchesController {
     }
     return res.status(httpStatus(status)).json(data);
   }
+
+  public async updatedInProgress(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { status, data } = await this.matchesService.updatedInprogress(Number(id));
+    return res.status(httpStatus(status)).json(data);
+  }
+
+  public async updatedMatches(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { status, data } = await this.matchesService.updatedMatches(Number(id), req.body);
+    return res.status(httpStatus(status)).json(data);
+  }
+
+  public async createMatch(req: Request, res: Response): Promise<Response> {
+    const { status, data } = await this.matchesService.createMatch(req.body);
+    return res.status(httpStatus(status)).json(data);
+  }
 }

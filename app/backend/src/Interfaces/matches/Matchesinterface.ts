@@ -21,3 +21,8 @@ export interface MatchesReturnModel {
     teamName: string,
   }
 }
+
+export interface MatchesUpdateBody {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+}

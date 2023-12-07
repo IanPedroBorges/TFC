@@ -1,5 +1,7 @@
+import { NewEntity } from '.';
+
 export interface ICrudModelCreator<T> {
-  create(data: Partial<T>): Promise<T | null>;
+  create(data: NewEntity<T>): Promise<T | null>;
 }
 
 export interface ICrudModelReader<T> {
@@ -16,7 +18,8 @@ export interface ICrudModelLogin<T> {
 }
 
 export interface ICrudModelUpdater<T> {
-  update(id: number, data: Partial<T>): Promise<T | null>;
+  updateInProgress(id: number): Promise<true | false>;
+  updateMatchTeams(id: number, data: Partial<T>): Promise<true | false>;
 }
 
 export interface ICrudModelMatchesInProgress<T> {
@@ -34,4 +37,7 @@ export interface ICrudModel<T> extends
   ICrudModelReaderById<T>,
   ICrudModelDeleter { }
 
-export interface ICrudMatches<T> extends ICrudModelReader<T>, ICrudModelMatchesInProgress<T> {}
+export interface ICrudMatches<T> extends
+  ICrudModelReader<T>,
+  ICrudModelUpdater<T>,
+  ICrudModelCreator<T> { }

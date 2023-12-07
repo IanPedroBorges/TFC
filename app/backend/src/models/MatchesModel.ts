@@ -1,9 +1,10 @@
+import { NewEntity } from '../Interfaces';
+import { ICrudMatches } from '../Interfaces/ICrudModel';
 import { MatchesInterface } from '../Interfaces/matches/Matchesinterface';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import SequelizeTeams from '../database/models/SequelizeTeams';
-import { ICrudModelReader } from '../Interfaces/ICrudModel';
 
-export default class MatchesModel implements ICrudModelReader<MatchesInterface> {
+export default class MatchesModel implements ICrudMatches<MatchesInterface> {
   private model = SequelizeMatches;
 
   async findAll(): Promise<MatchesInterface[]> {
@@ -14,5 +15,20 @@ export default class MatchesModel implements ICrudModelReader<MatchesInterface> 
       ] });
     const allMatchesData = allMatches.map((match) => match.dataValues);
     return allMatchesData;
+  }
+
+  async updateInProgress(id: number): Promise<true | false> {
+    const [affectedCount] = await this.model.update({ inProgress: false }, { where: { id } });
+    return affectedCount > 0;
+  }
+
+  async updateMatchTeams(id: number, data: Partial<MatchesInterface>): Promise<true | false> {
+    const [affectedCount] = await this.model.update(data, { where: { id } });
+    return affectedCount > 0;
+  }
+
+  async create(data: NewEntity<MatchesInterface>): Promise<MatchesInterface | null> {
+    const newMatch = await this.model.create(data);
+    return newMatch.dataValues;
   }
 }

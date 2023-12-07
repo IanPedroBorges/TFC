@@ -8,6 +8,7 @@ import { app } from '../app';
 import { Response } from 'superagent';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import { mockAllMatchesReturnFalse, mockAllMatchesReturnTrue } from './mocks/mockMatche';
+import JWT from '../utils/JWT';
 
 chai.use(chaiHttp);
 
@@ -38,4 +39,27 @@ describe('MatchesIntegrations', () => {
         expect(body).to.be.an('array');
         expect(body[0]).to.be.an('object');
     })
+    /* it('verificando se a rota /matches/:id atualiza o status de uma partida para finalizada', async () => {
+        sinon.stub(SequelizeMatches, 'update').resolves([1])
+        sinon.stub(JWT, 'verify').returns({ id: 1 })
+        const { status, body } = await chai.request(app).patch('/matches/1').send({
+            Headers: {
+                Authorization: 'Bearer token'
+            },
+            body: {
+                homeTeamGoals: 1,
+                awayTeamGoals: 1,
+            }
+        });
+        expect(status).to.equal(200);
+        expect(body).to.be.an('object');
+        expect(body.message).to.be.a('string');
+    })
+    it('verificando se a rota da error quando id invalido', async () => {
+        sinon.stub(SequelizeMatches, 'update').resolves([0])
+        const { status, body } = await chai.request(app).patch('/matches/1');
+        expect(status).to.equal(401);
+        expect(body).to.be.an('object');
+        expect(body.message).to.be.a('string');
+    }) */
 });

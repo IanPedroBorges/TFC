@@ -1,6 +1,7 @@
 export type ServiceMessage = { message: string };
 
-type ServiceResponseErrorType = 'invalidData' | 'notFound' | 'internalServerError' | 'unauthorized';
+type ServiceResponseErrorType =
+  'invalidData' | 'notFound' | 'internalServerError' | 'unauthorized' | 'unprocessableEntity';
 
 type ServiceResponseSuceessType = 'created' | 'ok' | 'noContent';
 

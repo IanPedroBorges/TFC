@@ -7,6 +7,7 @@ const httpTypes = {
   invalidData: 400,
   unauthorized: 401,
   notFound: 404,
+  unprocessableEntity: 422,
   internalServerError: 500,
 };
 

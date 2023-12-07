@@ -13,7 +13,6 @@ export default class TeamsServices {
 
   public async findById(id: number): Promise<ServiceResponse<TeamsInterface>> {
     const team = await this.teamsModel.findById(id);
-    console.log(team);
     if (!team) return { status: 'notFound', data: { message: 'Team not found' } };
     return { status: 'ok', data: team };
   }

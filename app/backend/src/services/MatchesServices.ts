@@ -1,10 +1,9 @@
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import MatchesModel from '../models/MatchesModel';
 import { MatchesInterface, MatchesUpdateBody } from '../Interfaces/matches/Matchesinterface';
-import TeamsModel from '../models/TeamsModel';
 
 export default class MatchesServices {
-  constructor(private model = new MatchesModel(), private modelTeam = new TeamsModel()) { }
+  constructor(private model = new MatchesModel()) { }
 
   public async getAllMatches(): Promise<ServiceResponse<MatchesInterface[]>> {
     const matches = await this.model.findAll();

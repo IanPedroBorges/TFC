@@ -31,4 +31,16 @@ export default class MatchesModel implements ICrudMatches<MatchesInterface> {
     const newMatch = await this.model.create(data);
     return newMatch.dataValues;
   }
+
+  async getAllMatchesHomeTeams(id: number): Promise<MatchesInterface[]> {
+    const allMatches = await this.model.findAll({
+      where: { homeTeamId: id, inProgress: false },
+      include: [
+        { model: SequelizeTeams, as: 'homeTeam', attributes: ['teamName'] },
+        { model: SequelizeTeams, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+    });
+    const allMatchesData = allMatches.map((match) => match.dataValues);
+    return allMatchesData;
+  }
 }

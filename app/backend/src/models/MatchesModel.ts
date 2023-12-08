@@ -32,9 +32,10 @@ export default class MatchesModel implements ICrudMatches<MatchesInterface> {
     return newMatch.dataValues;
   }
 
-  async getAllMatchesHomeTeams(id: number): Promise<MatchesInterface[]> {
+  async getAllMatchesHomeTeams(id: number, homeOrAway: string): Promise<MatchesInterface[]> {
+    const keyTeam = `${homeOrAway}TeamId`;
     const allMatches = await this.model.findAll({
-      where: { homeTeamId: id, inProgress: false },
+      where: { [keyTeam]: id, inProgress: false },
       include: [
         { model: SequelizeTeams, as: 'homeTeam', attributes: ['teamName'] },
         { model: SequelizeTeams, as: 'awayTeam', attributes: ['teamName'] },
@@ -43,4 +44,16 @@ export default class MatchesModel implements ICrudMatches<MatchesInterface> {
     const allMatchesData = allMatches.map((match) => match.dataValues);
     return allMatchesData;
   }
+
+  // async getAllMatchesAwayTeams(id: number): Promise<MatchesInterface[]> {
+  //   const allMatches = await this.model.findAll({
+  //     where: { awayTeamId: id, inProgress: false },
+  //     include: [
+  //       { model: SequelizeTeams, as: 'homeTeam', attributes: ['teamName'] },
+  //       { model: SequelizeTeams, as: 'awayTeam', attributes: ['teamName'] },
+  //     ],
+  //   });
+  //   const allMatchesData = allMatches.map((match) => match.dataValues);
+  //   return allMatchesData;
+  // }
 }

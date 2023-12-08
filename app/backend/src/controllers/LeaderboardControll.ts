@@ -6,8 +6,13 @@ export default class LeaderboardController {
   constructor(private leaderboardService = new LeaderboardServices()) {
   }
 
-  async getLeaderboard(_req: Request, res: Response): Promise<Response> {
-    const { data, status } = await this.leaderboardService.getLeaderboardHome();
+  async getLeaderboardHome(_req: Request, res: Response): Promise<Response> {
+    const { data, status } = await this.leaderboardService.getLeaderboard('home');
+    return res.status(httpStatus(status)).json(data);
+  }
+
+  async getLeaderboardAway(_req: Request, res: Response): Promise<Response> {
+    const { data, status } = await this.leaderboardService.getLeaderboard('away');
     return res.status(httpStatus(status)).json(data);
   }
 }

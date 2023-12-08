@@ -53,19 +53,11 @@ describe('Testando a rota login', () => {
         expect(body).to.be.an('object');
         expect(body).to.have.property('message');
     })
-    /* it('ao tentar pegar o getRole deve ter um retorno correto', async () => {
-        sinon.stub({
-            req: {headers: {
-                authorization: 'Bearer token'
-            }}
-        })
-        sinon.stub(JWT, 'verify').returns({
-            id: 1,
-            email: ''
-        })
-        sinon.stub(SequelizeUser, 'findOne').resolves({dataValues:{role: 'admin'}} as any)
-        const { status, body } = await chai.request(app).get('/getRole')
+    it('ao tentar pegar o getRole deve ter um retorno correto', async () => {
+        sinon.stub(JWT, 'verify').callsFake(() => ({ id: 1}) )
+        sinon.stub(SequelizeUser, 'findOne').resolves({dataValues:{ id: 1, email: '', username: 'nome', password: '12321', role: 'admin' }} as any)
+        const { status, body } = await chai.request(app).get('/login/role').set('Authorization', 'Bearer token');
         expect(status).to.equal(200);
         expect(body).to.be.an('object');
-    }) */
+    })
 });

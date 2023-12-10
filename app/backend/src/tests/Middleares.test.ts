@@ -18,12 +18,12 @@ describe('Middlewares', () => {
     })
     it('testando o middleware ValidationsToken error token invalid', async () => {
         const { body, status } = await chai.request(app).get('/login/role').set('Authorization', 'tokenxcxzczxczx');
-        expect(status).to.equal(500);
+        expect(status).to.equal(401);
         expect(body).to.be.an('object');
     })
     it('testando o middleware ValidationsToken error token invalid', async () => {
-        const { status } = await chai.request(app).post('/matches').set('Authorization', 'token_xcxzczxczx');
-        expect(status).to.equal(404);
+        const { status } = await chai.request(app).post('/matches').set('Authorization', 'Bearerxcxzczxczx');
+        expect(status).to.equal(401);
     });
     it('testando a middleware Validations de User error email or password invalid', async () => {
         const { status } = await chai.request(app).post('/login').send({ email: '', password: '' });
@@ -42,15 +42,15 @@ describe('Middlewares', () => {
         expect(status).to.equal(400);
     });
     it('testando a middleware Validations de Matches error homeTeamId or awayTeamId invalid', async () => {
-        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '', awayTeamId: '' }).set('Authorization', 'token xcxzczxczx');
+        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '', awayTeamId: '' }).set('Authorization', 'Bearer xcxzczxczx');
         expect(status).to.equal(404);
     })
     it('testando a middleware Validations de Matches error homeTeamId or awayTeamId invalid', async () => {
-        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '123', awayTeamId: '123' }).set('Authorization', 'token xcxzczxczx');
+        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '123', awayTeamId: '123' }).set('Authorization', 'Bearer xcxzczxczx');
         expect(status).to.equal(404);
     })
     it('testando a middleware Validations de Matches error homeTeamId or awayTeamId invalid', async () => {
-        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '123', awayTeamId: '' }).set('Authorization', 'token xcxzczxczx');
+        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '123', awayTeamId: '' }).set('Authorization', 'Bearer xcxzczxczx');
         expect(status).to.equal(404);
     })
     it('testando a middleware Validations de Matches error homeTeamId or awayTeamId equals', async () => {
@@ -58,7 +58,7 @@ describe('Middlewares', () => {
         const calledModel = sinon.stub(TeamModel, 'findById');
         calledModel.onFirstCall().resolves({id: 2, teamName: 'team' } as any);
         calledModel.onSecondCall().resolves({ id: 2, teamName: 'team' } as any);
-        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '1', awayTeamId: '1' }).set('Authorization', 'token xcxzczxczx');
+        const { status } = await chai.request(app).post('/matches').send({ homeTeamId: '1', awayTeamId: '1' }).set('Authorization', 'Bearer xcxzczxczx');
         expect(status).to.equal(422);
     });
 });

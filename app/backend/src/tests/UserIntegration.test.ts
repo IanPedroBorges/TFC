@@ -60,4 +60,14 @@ describe('Testando a rota login', () => {
         expect(status).to.equal(200);
         expect(body).to.be.an('object');
     })
+    it('testando se retorna erro quando a verify da error', async () => {
+        sinon.stub(SequelizeUser, 'findOne').returns(null as any)
+        const { status, body } = await chai.request(app).post('/login').send({
+            email: '',
+            password: ''
+        });
+        expect(status).to.equal(400);
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('message');
+    })
 });

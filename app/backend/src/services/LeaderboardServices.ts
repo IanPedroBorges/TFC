@@ -20,6 +20,36 @@ export default class LeaderboardServices {
     return { status: 'ok', data: result };
   }
 
+  async getAllLeaderboard(): Promise<ServiceResponse<LeaderboardInterface[]>> {
+    const allTeams = await this.modelTeams.findAll();
+    const LeaderboardAll = await Promise.all(allTeams.map(async (team) => {
+      const homeTeam = await this.getMatches(team.id, 'home');
+      const awayTeam = await this.getMatches(team.id, 'away');
+      const allMatches = LeaderboardServices.tratedReturnAllMatches(homeTeam, awayTeam);
+      return { name: team.teamName, ...allMatches };
+    }));
+    const result = LeaderboardServices.orderLeaderboard(LeaderboardAll);
+    return { status: 'ok', data: result };
+  }
+
+  private static tratedReturnAllMatches(
+    homeTeam: LeaderboardInterfaceMatches,
+    awayTeam: LeaderboardInterfaceMatches,
+  ): LeaderboardInterfaceMatches {
+    return {
+      totalPoints: homeTeam.totalPoints + awayTeam.totalPoints,
+      totalGames: homeTeam.totalGames + awayTeam.totalGames,
+      totalVictories: homeTeam.totalVictories + awayTeam.totalVictories,
+      totalDraws: homeTeam.totalDraws + awayTeam.totalDraws,
+      totalLosses: homeTeam.totalLosses + awayTeam.totalLosses,
+      goalsFavor: homeTeam.goalsFavor + awayTeam.goalsFavor,
+      goalsOwn: homeTeam.goalsOwn + awayTeam.goalsOwn,
+      goalsBalance: homeTeam.goalsBalance + awayTeam.goalsBalance,
+      efficiency: `${(((homeTeam.totalPoints + awayTeam.totalPoints)
+        / ((homeTeam.totalGames + awayTeam.totalGames) * 3)) * 100).toFixed(2)}`,
+    };
+  }
+
   private async getMatches(id: number, homeOrAway: string): Promise<LeaderboardInterfaceMatches> {
     const matches = await this.modelMatches.getAllMatchesHomeTeams(id, homeOrAway);
     const tratedReturn = LeaderboardServices.tratedReturnMatches(matches, homeOrAway);

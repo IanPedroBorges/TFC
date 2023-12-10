@@ -53,5 +53,27 @@ describe('MatchesIntegrations', () => {
         expect(status).to.equal(500);
         expect(body).to.be.an('object');
         expect(body.message).to.be.a('string');
-    }) 
+    })
+    it('testando a rota /matches/:id retorna com um sucesso', async () => {
+        sinon.stub(SequelizeMatches, 'update').resolves([ 1 ] as any)
+        const { status, body } = await chai.request(app).patch('/matches/5').set('Authorization', 'Bearer token');
+        expect(status).to.equal(200);
+        expect(body).to.be.an('object');
+    });
+    it('testando se é possivel criar uma partida', async () => {
+        sinon.stub(SequelizeMatches, 'create').resolves({dataValues: { id: 1 }} as any);
+        sinon.stub(JWT, 'verify').returns({ id: 1 });
+        const { status, body } = await chai.request(app).post('/matches').send({ "homeTeamId": 8,
+        "awayTeamId": 7,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2 }).set('Authorization', 'Bearer token');
+        expect(status).to.equal(201);
+        expect(body).to.be.an('object');
+    });
+    it('testando a rota /matches/:id retorna com um sucesso', async () => {
+        sinon.stub(SequelizeMatches, 'update').resolves([ 0 ] as any)
+        const { status, body } = await chai.request(app).patch('/matches/5').set('Authorization', 'Bearer token');
+        expect(status).to.equal(500);
+        expect(body).to.be.an('object');
+    });
 });

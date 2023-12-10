@@ -17,4 +17,9 @@ router.get(
   (req: Request, res: Response) => leaderboardControll.getLeaderboardAway(req, res),
 );
 
+router.get(
+  '/',
+  (req: Request, res: Response) => leaderboardControll.getLeaderboardAll(req, res),
+);
+
 export default router;

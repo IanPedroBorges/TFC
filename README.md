@@ -1,5 +1,5 @@
 # Projeto TFC
-O TFC é um site informativo sobre partidas e classificações de futebol. O front-end foi disponibilizado pela Trybe, e eu desenvolvi o back-end, que consiste em uma API e um banco de dados, ambos criados utilizando arquitetura em camadas e programação orientada a objetos (POO).
+O TFC é um site informativo sobre partidas e classificações de futebol.
 
 ## Tecnologias utilizadas
 - <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>

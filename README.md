@@ -20,7 +20,8 @@ O TFC é um site informativo sobre partidas e classificações de futebol. O fro
   ```
   git@github.com:IanPedroBorges/TFC.git
   ```
-- Execute o comando ```npm run compose:up``` para iniciar a aplicação em sua máquina.
+- Execute o comando ```install:apps```
+- ```npm run compose:up``` para iniciar a aplicação em sua máquina.
 
 ## Funcionalidades
 1) Endpoint ```/teams``` para retornar os times.
